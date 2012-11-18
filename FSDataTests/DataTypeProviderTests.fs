@@ -9,13 +9,13 @@ open Microsoft.FSharp.Linq
 open Microsoft.VisualStudio.TestTools.UnitTesting    
 open Assertions
 
-// This beautiful type provider gives us instant, type safe access to database.
-type dbSchema = SqlDataConnection<"Data Source=.;Initial Catalog=OrmTest;Integrated Security=SSPI;">
-
 // In these tests, we show off useage of F# 3.0 features including type the provider
 // for SQL Server as well as Query Expressions. The type provider instantly provides
 // strong typing for the DB schema and allows the user to explore it using intellisense.
 // This makes access to data extremely easy and simple for data scripting purposes.
+
+// This beautiful type provider gives us instant, type safe access to database.
+type dbSchema = SqlDataConnection<"Data Source=.;Initial Catalog=OrmTest;Integrated Security=SSPI;">
 
 [<TestClass>]
 type Test_DataTypeProvider() =
