@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSUtils", "..\FSUtils\FSUtils.fsproj", "{BA8EB3C1-A159-4FD3-94D1-DD18C9B85E10}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSTestUtils", "..\FSTestUtils\FSTestUtils.fsproj", "{BD415912-B5BB-463D-94AE-93B2831AA67B}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Data.Tests", "..\FSDataTests\Data.Tests.fsproj", "{696571E8-1719-4E18-82DF-3D53476BE6A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{696571E8-1719-4E18-82DF-3D53476BE6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA8EB3C1-A159-4FD3-94D1-DD18C9B85E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA8EB3C1-A159-4FD3-94D1-DD18C9B85E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA8EB3C1-A159-4FD3-94D1-DD18C9B85E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA8EB3C1-A159-4FD3-94D1-DD18C9B85E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD415912-B5BB-463D-94AE-93B2831AA67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD415912-B5BB-463D-94AE-93B2831AA67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD415912-B5BB-463D-94AE-93B2831AA67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD415912-B5BB-463D-94AE-93B2831AA67B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
