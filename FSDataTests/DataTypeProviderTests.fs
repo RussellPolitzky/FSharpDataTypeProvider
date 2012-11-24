@@ -9,19 +9,25 @@ open Microsoft.FSharp.Linq
 open Microsoft.VisualStudio.TestTools.UnitTesting    
 open Assertions
 
-// In these tests, we show off useage of F# 3.0 features including type the provider
-// for SQL Server as well as Query Expressions. The type provider instantly provides
+// In these tests, we show off useage of F# 3.0 features including the type provider
+// for SQL Server and Query Expressions. The type provider instantly provides
 // strong typing for the DB schema and allows the user to explore it using intellisense.
 // This makes access to data extremely easy and simple for data scripting purposes.
 
 // This beautiful type provider gives us instant, type safe access to database.
 type dbSchema = SqlDataConnection<"Data Source=.;Initial Catalog=OrmTest;Integrated Security=SSPI;">
 
+// Declare immutable DTO types.
+type private HeroLocation = { HeroName : string; HeroLocation: string; }
+type private HeroAbility  = { HeroName : string; AbilityName : string; }
+
+
 [<TestClass>]
 type Test_DataTypeProvider() =
 
     let db = dbSchema.GetDataContext()
     
+
     [<TestInitialize>]
     member this.Setup() =
         db.DataContext.Log <- System.Console.Out
@@ -45,13 +51,13 @@ type Test_DataTypeProvider() =
             join location in db.Locations on (hero.LocationId ?= location.LocationId)  // Note the nullable comparison operator
             join race     in db.Races     on (hero.RaceId ?= race.RaceId)              // Note the nullable comparison operator
             where (race.RaceName = "Human")
-            select (hero.HeroName, location.LocationName)
+            select ({HeroName=hero.HeroName; HeroLocation=location.LocationName})
         }
 
         printf "%s" (finalQuery.ToString()) // Show the SQL 
 
         finalQuery
-        |> Seq.map (fun result -> sprintf "%s,%s" (fst result) (snd result))
+        |> Seq.map (fun result -> sprintf "%s,%s" result.HeroName result.HeroLocation)
         |> Seq.toSingleSringWithSep ";"
         |> IsSameStringAs @"Hulk,Canadian Rockies;Spider Man,New York, New York;Iron Man,New York, New York"
 
@@ -93,13 +99,13 @@ type Test_DataTypeProvider() =
                 where (heroesWithAccHealing.Contains(hero.HeroId))  // Use the sub-query here.
                 sortBy hero.HeroName
                 thenBy ability.AbilityName
-                select (hero.HeroName, ability.AbilityName)
+                select ({ HeroName = hero.HeroName; AbilityName = ability.AbilityName})
             }
 
         printf "%s" (finalQuery.ToString()) // Show the SQL 
 
         finalQuery
-        |> Seq.map (fun result -> sprintf "%s, %s" (fst result) (snd result))
+        |> Seq.map (fun result -> sprintf "%s, %s" result.HeroName result.AbilityName)
         |> Seq.toSingleSringWithSep "\r\n"
         |> IsSameStringAs @"Spider Man, Accelerated Healing
 Spider Man, Cling to allmost any surface
@@ -128,7 +134,7 @@ Wolverine, Super-human senses"
         }
 
         let finalQuery = query {
-            for hero     in db.Heros do 
+            for hero     in db.Heros    do 
             join e       in db.Enemies  on (hero.HeroId = e.HeroId) 
             join villain in db.Villains on (e.VillainId = villain.VillainId)
             where (heroesWithAvengersAsEnemies.Contains(hero.HeroId))
